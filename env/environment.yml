@@ -1,0 +1,15 @@
+name: tabular-data-gen
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pandas
+  - numpy
+  - scikit-learn
+  - seaborn
+  - matplotlib
+  - jupyter
+  - pip
+  - pip:
+    - tabgan
