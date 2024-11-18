@@ -40,26 +40,26 @@ conda info --envs
 
 ## 2. Do the Thing
 
-# Note: Avoid using the VSCode terminal; use the Anaconda terminal instead.
+Note: Avoid using the VSCode terminal; use the Anaconda terminal instead.
 
-# If needed, shrink the dataset for faster processing
-# Replace "path/to/raw_data.csv" with your actual path
+If needed, shrink the dataset for faster processing
+Replace "path/to/raw_data.csv" with your actual path
 
 ```bash
 python scripts/shrink_data.py
 ```
 
-# Preprocess the data
+Preprocess the data
 ```bash
 python scripts/preprocess.py
 ```
 
-# Generate synthetic data
+Generate synthetic data
 ```bash
 python scripts/generate_data.py
 ```
 
-# Compare synthetic data with the original
+Compare synthetic data with the original
 ```bash
 python scripts/compare_data.py
 ```
