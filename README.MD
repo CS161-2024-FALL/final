@@ -1,58 +1,65 @@
+
 # Tabular Data Generation Project
 
-This project uses generative AI techniques to create synthetic tabular datasets that make sense. The focus is on using the **TabGAN** library and processing data efficiently within an isolated environment.
+This project uses generative AI techniques to create synthetic tabular datasets. It focuses on leveraging the **TabGAN** library and processing data efficiently within an isolated environment.
 
 ---
 
-## **1. Requirements**
-- [Anaconda](https://www.anaconda.com/download): A Python distribution that simplifies package and environment management.
-- [VSCode](https://code.visualstudio.com/): A lightweight and powerful code editor.
+## 1. Requirements
+
+- [Anaconda](https://www.anaconda.com/download): A Python distribution for managing packages and environments.
+- [VSCode](https://code.visualstudio.com/): A lightweight, powerful code editor.
 - Python 3.9 or higher.
 
 ---
 
-## **2. Initial Setup**
+## 2. Initial Setup
 
-### **Step 1: Install Anaconda**
-1. Download Anaconda from [here](https://www.anaconda.com/download).
-2. Install Anaconda by following the installation wizard.
-3. Verify the installation:
-   ```bash
-   conda --version
+```bash
+# Step 1: Install Anaconda
+# Download Anaconda from https://www.anaconda.com/download
+# Follow the installation wizard to install Anaconda
 
-### **Step 2: make the env **
+# Verify the installation
+conda --version
 
+# Step 2: Create the Environment
+# Create the environment from the environment.yml file
 conda env create -f env/environment.yml
 
-if you mess up you can do
-
+# If you need to start over, remove the environment
 conda env remove -n tabular-data-gen
 
-
-### **Step 3: activate it***
-
-also, dont use vs code terminal, use the conda terminal.
-
+# Step 3: Activate the Environment
+# Activate the environment
 conda activate tabular-data-gen
 
+# Confirm the environment is activated
 conda info --envs
+```
 
-### **Step 4: running scripts***
+## 2. Do the Thing
 
-if we want for speed, use shrink script. make sure replace with ur path
+# Note: Avoid using the VSCode terminal; use the Anaconda terminal instead.
+
+# If needed, shrink the dataset for faster processing
+# Replace "path/to/raw_data.csv" with your actual path
+
+```bash
 python scripts/shrink_data.py
+```
 
-
-then do 
+# Preprocess the data
+```bash
 python scripts/preprocess.py
+```
 
-then do 
+# Generate synthetic data
+```bash
 python scripts/generate_data.py
+```
 
-
-
-
-
-
-
-   
+# Compare synthetic data with the original
+```bash
+python scripts/compare_data.py
+```
