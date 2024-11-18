@@ -1,0 +1,34 @@
+# Ignore all .csv files in the /data directory
+/data/*.csv
+
+# General ignores
+*.log          # Log files
+*.tmp          # Temporary files
+*.swp          # Swap files
+*.bak          # Backup files
+*.~            # Editor backup files
+
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore environment files
+.env
+.venv
+env/
+venv/
+
+# Ignore VSCode workspace and settings
+.vscode/
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Ignore macOS and system files
+.DS_Store
+Thumbs.db
