@@ -10,6 +10,7 @@ dependencies:
   - seaborn
   - matplotlib
   - jupyter
+  - boto3  
   - pip
   - pip:
     - tabgan
