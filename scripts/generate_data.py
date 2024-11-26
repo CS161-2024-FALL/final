@@ -1,10 +1,11 @@
 # Script for training GAN and generating synthetic data
 import pandas as pd
+import pickle
 from tabgan.sampler import GANGenerator
 from utils import prepare_dataset
 
 
-def generate_synthetic_data(input_path, output_path, n_sample):
+def generate_synthetic_data(input_path, output_path, model_path, n_sample):
     """
     Generate synthetic data using TabGAN.
 
@@ -31,6 +32,10 @@ def generate_synthetic_data(input_path, output_path, n_sample):
         train, target, test, only_generated_data=False
     )
 
+    # write model (pickle)
+    with open(model_file,'wb') as f:
+        pickle.dump(generator, f)
+
     # Save synthetic data to a CSV file
     synthetic_data = pd.concat([new_train, new_target], axis=1)
     print(f"Saving synthetic dataset to {output_path}...")
@@ -45,4 +50,6 @@ if __name__ == "__main__":
     # Specify the number of synthetic rows to generate
     n_sample = 10000
 
-    generate_synthetic_data(input_file, output_file, n_sample)
+    model_file = f"tabgan.n{n_sample}.pkl"
+
+    generate_synthetic_data(input_file, output_file, model_file, n_sample)
