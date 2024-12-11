@@ -9,8 +9,9 @@ N_OUT = 50000 # output
 EPOCHS = 50
 BATCH_SIZE = 256
 
+################################################### EDITED_START - Richard ########################################################
 # increase label=1 by downsampling negative label
-def upsample_df(df, column, value, ratio, seed=None):
+def increase_rel_freq(df, column, value, rel_freq, seed=None):
     if seed is not None:
         np.random.seed(seed)
 
@@ -18,14 +19,13 @@ def upsample_df(df, column, value, ratio, seed=None):
     df_others = df[df[column] != value]
 
     n_value = len(df_value)
-    n_others = int(n_value / ratio) - n_value if ratio < 1 else int(n_value * ratio) - n_value
+    n_downsampled = int(n_value * (1-rel_freq)/rel_freq)
 
-    if n_others > len(df_others):
-        raise ValueError("Not enough data to achieve desired ratoi.")
-    
-
+    if(n_downsampled > len(df_others)):
+      print("WARNING: data already exceeds ratio. Returning original df")
+      return df
     # downsample
-    sampled_others = df_others.sample(n=n_others, random_state=seed)
+    sampled_others = df_others.sample(n=n_downsampled, random_state=seed)
     sampled_df = pd.concat([df_value, sampled_others]).sample(frac=1, random_state=seed).reset_index(drop=True)
 
     return sampled_df
@@ -43,7 +43,9 @@ df['label'] = df['label'].astype(str)
 df['cillabel'] = df['cillabel'].astype(str)
 df['age'] = df['age'].astype(str)
 
-df = upsample_df(df, 'label', '1', 0.1, seed=1)
+df = increase_rel_freq(df, 'label', '1', 0.1, seed=1)
+
+################################################### EDITED_END - Richard ########################################################
 
 # Define fairness configuration
 fairness_config = {
