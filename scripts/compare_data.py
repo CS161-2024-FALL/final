@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 
 # WE CHANGE THESE PATH VALUES HERE
-INPUT_PATH = "data/raw_train_data_ads_100k.csv"
-OUTPUT_PATH = "data/synthetic_fair_data_ads_100k.csv"
+INPUT_PATH = "data/data_ads_10k.csv"
+OUTPUT_PATH = "data/synthetic_fair_data_ads_10k.csv"
 
 
 def compare_numerical_features(real_data, synthetic_data, numerical_cols):

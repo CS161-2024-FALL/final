@@ -9,13 +9,13 @@ SUBSET = 5000
 N_OUT = 50000
 EPOCHS = 100
 BATCH_SIZE = 256
-DEVICE = "cpu"  # can use gpu by setting to "cuda:0"
+DEVICE = "cuda:0"  # can use gpu by setting to "cuda:0"
 
 
 # FILE PATHS
-INPUT_F = "data/raw_train_data_ads_100k.csv"
+INPUT_F = "data/data_ads_10k.csv"
 OUTPUT_F = "data/synthetic_fair_data_ads_100k.csv"
-MODEL_F = "data/tabgan_fair_ads_100k_model.pkl"
+MODEL_F = "data/tabgan_fair_ads_10k_model.pkl"
 
 
 # FAIRNESS CONFIG
@@ -66,7 +66,7 @@ def generate_synthetic_data(
 
     # we increase the relative frequency of label=1 by downsampling negative label
     print("Increasing relative frequency of label=1 by downsampling negative label...")
-    df = increase_rel_freq(df, "label", "1", 0.1, seed=1)
+    df = increase_rel_freq(df, "label", 1, 0.1, seed=1)
 
     # we need to convert to strings so that TabFairGAN can process them other wise it breaks
     categorical_columns = [
@@ -80,6 +80,7 @@ def generate_synthetic_data(
         "device_name",
         "net_type",
         "label",
+        "age",
     ]
     for col in categorical_columns:
         df[col] = df[col].astype(str)

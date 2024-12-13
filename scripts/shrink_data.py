@@ -1,9 +1,9 @@
 import pandas as pd
 
 
-RAW_F = r"C:\SCHOOL\FALL 24\STATS 161\midterm\test_data_ads.csv"
-OUTPUT_F = "data/data_ads_100k.csv"
-N_SAMPLES = 100000
+RAW_F = r"C:\SCHOOL\FALL 24\STATS 161\midterm\train_data_ads.csv"
+OUTPUT_F = "data/data_ads_10k.csv"
+N_SAMPLES = 10000
 
 
 def shrink_dataset(input_path, output_path):
@@ -20,5 +20,5 @@ def shrink_dataset(input_path, output_path):
 
 if __name__ == "__main__":
     input_file = RAW_F
-    output_file = "data/raw_data.csv"
+    output_file = OUTPUT_F
     shrink_dataset(input_file, output_file)
