@@ -49,7 +49,7 @@ Replace "path/to/raw_data.csv" with your actual path
 python scripts/shrink_data.py
 ```
 
-Preprocess the data
+Preprocess the data (We skip this anymore since we alr do it in tabfairgan logic skip)
 ```bash
 python scripts/preprocess.py
 ```

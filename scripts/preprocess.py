@@ -1,23 +1,23 @@
 import pandas as pd
 from utils import encode_categorical, normalize_numerical
 
-# Explicitly define fields
+# Originally, this was used with another tab gan library
 categorical_cols = [
     "gender",
     "residence",
     "city",
     "city_rank",
-    "series_dev",
-    "series_group",
-    "emui_dev",
-    "device_name",
-    "net_type",
+    # "series_dev",
+    # "series_group",
+    # "emui_dev",
+    # "device_name",
+    # "net_type",
 ]
 
 numerical_cols = [
     "age",
-    "device_size",
-    "app_score",
+    # "device_size",
+    # "app_score",
     "u_refreshTimes",
     "u_feedLifeCycle",
 ]
@@ -49,17 +49,6 @@ include_fields = categorical_cols + numerical_cols
 
 
 def preprocess_data(input_path, output_path):
-    """
-    Preprocess the input dataset by selecting specified fields,
-    encoding categorical fields, and normalizing numeric fields.
-
-    Args:
-        input_path (str): Path to the raw dataset CSV.
-        output_path (str): Path to save the processed dataset CSV.
-
-    Returns:
-        None
-    """
     # Load the dataset
     print(f"Loading dataset from {input_path}...")
     df = pd.read_csv(input_path)

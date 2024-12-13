@@ -1,46 +1,23 @@
-# Script for comparing synthetic and original data
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def aggregate_one_hot_columns(df, prefix):
-    """
-    Combine one-hot encoded columns back into a single categorical column.
-
-    Args:
-        df (pd.DataFrame): DataFrame containing one-hot encoded columns.
-        prefix (str): Prefix of the original column (e.g., 'gender', 'residence').
-
-    Returns:
-        pd.Series: Combined categorical column.
-    """
-    cols = [col for col in df.columns if col.startswith(prefix + "_")]
-    if not cols:
-        return None
-
-    return df[cols].idxmax(axis=1).str[len(prefix) + 1 :]
+# WE CHANGE THESE PATH VALUES HERE
+INPUT_PATH = "data/raw_train_data_ads_100k.csv"
+OUTPUT_PATH = "data/synthetic_fair_data_ads_100k.csv"
 
 
 def compare_numerical_features(real_data, synthetic_data, numerical_cols):
-    """
-    Compare numerical features using distribution plots.
-
-    Args:
-        real_data (pd.DataFrame): Original dataset.
-        synthetic_data (pd.DataFrame): Synthetic dataset.
-        numerical_cols (list): List of numerical columns to compare.
-
-    Returns:
-        None
-    """
     for col in numerical_cols:
         if col not in real_data.columns or col not in synthetic_data.columns:
             print(
-                f"[WARNING] Numerical column '{col}' is missing in one of the datasets. Skipping..."
+                f"[UH OH SPAGETTIO] numerical column '{col}' is missing. We skipping..."
             )
             continue
-        plt.figure(figsize=(8, 6))
+
+        # plotting distribution configs
+        plt.figure(figsize=(8, 7))
         sns.kdeplot(real_data[col], label="Original", shade=True, color="blue")
         sns.kdeplot(synthetic_data[col], label="Synthetic", shade=True, color="orange")
         plt.title(f"Distribution Comparison: {col}")
@@ -51,30 +28,18 @@ def compare_numerical_features(real_data, synthetic_data, numerical_cols):
 
 
 def compare_categorical_features(real_data, synthetic_data, categorical_cols):
-    """
-    Compare categorical features using bar plots.
 
-    Args:
-        real_data (pd.DataFrame): Original dataset.
-        synthetic_data (pd.DataFrame): Synthetic dataset.
-        categorical_cols (list): List of categorical columns to compare.
-
-    Returns:
-        None
-    """
     for col in categorical_cols:
-        real_col = aggregate_one_hot_columns(real_data, col)
-        synthetic_col = aggregate_one_hot_columns(synthetic_data, col)
-
-        if real_col is None or synthetic_col is None:
+        if col not in real_data.columns or col not in synthetic_data.columns:
             print(
-                f"[WARNING] Categorical column '{col}' is missing or not encoded properly. Skipping..."
+                f"[UH OH SPAGETTIO] categorical column '{col}' is missing. We skipping..."
             )
             continue
 
-        plt.figure(figsize=(8, 6))
-        real_counts = real_col.value_counts(normalize=True).sort_index()
-        synthetic_counts = synthetic_col.value_counts(normalize=True).sort_index()
+        # plotting distribution configs
+        plt.figure(figsize=(8, 7))
+        real_counts = real_data[col].value_counts(normalize=True).sort_index()
+        synthetic_counts = synthetic_data[col].value_counts(normalize=True).sort_index()
 
         df_comparison = pd.DataFrame(
             {"Original": real_counts, "Synthetic": synthetic_counts}
@@ -90,18 +55,34 @@ def compare_categorical_features(real_data, synthetic_data, categorical_cols):
 
 
 if __name__ == "__main__":
-    # Paths to datasets
-    real_data_path = r"C:\SCHOOL\FALL 24\STATS 161\final\final\data\processed_data.csv"
-    synthetic_data_path = (
-        r"C:\SCHOOL\FALL 24\STATS 161\final\final\data\synthetic_data.csv"
-    )
 
-    # Load datasets
-    print("Loading datasets...")
+    # we set our declared paths here
+    real_data_path = INPUT_PATH
+    synthetic_data_path = OUTPUT_PATH
+
+    # we load the datasets
+    print("loading our datasets...")
     real_data = pd.read_csv(real_data_path)
     synthetic_data = pd.read_csv(synthetic_data_path)
 
-    # Define numerical and categorical columns
+    # we need to convert to strings so that TabFairGAN can process them other wise it breaks
+    categorical_columns = [
+        "gender",
+        "residence",
+        "city",
+        "city_rank",
+        "series_dev",
+        "series_group",
+        "emui_dev",
+        "device_name",
+        "net_type",
+        "label",
+    ]
+    for col in categorical_columns:
+        real_data[col] = real_data[col].astype(str)
+        synthetic_data[col] = synthetic_data[col].astype(str)
+
+    # we define the numerical columns so we can compare them
     numerical_cols = [
         "age",
         "device_size",
@@ -109,12 +90,11 @@ if __name__ == "__main__":
         "u_refreshTimes",
         "u_feedLifeCycle",
     ]
-    categorical_cols = ["gender", "residence", "city", "device_name", "net_type"]
 
-    # Compare numerical features
+    # compare numerical features
     print("\nComparing numerical features...")
     compare_numerical_features(real_data, synthetic_data, numerical_cols)
 
-    # Compare categorical features
+    # compare categorical features
     print("\nComparing categorical features...")
-    compare_categorical_features(real_data, synthetic_data, categorical_cols)
+    compare_categorical_features(real_data, synthetic_data, categorical_columns)
