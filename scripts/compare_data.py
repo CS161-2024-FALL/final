@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 
 # WE CHANGE THESE PATH VALUES HERE
-INPUT_PATH = "data/data_ads_10k.csv"
-OUTPUT_PATH = "data/synthetic_fair_data_ads_10k.csv"
+INPUT_PATH = "data/500k/data_ads_500k.csv"
+OUTPUT_PATH = "data/500k/synthetic_fair_data_ads_500k.csv"
 
 
 def compare_numerical_features(real_data, synthetic_data, numerical_cols):
@@ -67,15 +67,15 @@ if __name__ == "__main__":
 
     # we need to convert to strings so that TabFairGAN can process them other wise it breaks
     categorical_columns = [
-        "gender",
-        "residence",
-        "city",
-        "city_rank",
-        "series_dev",
-        "series_group",
-        "emui_dev",
-        "device_name",
-        "net_type",
+        # "gender",
+        # "residence",
+        # "city",
+        # "city_rank",
+        # "series_dev",
+        # "series_group",
+        # "emui_dev",
+        # "device_name",
+        # "net_type",
         "label",
     ]
     for col in categorical_columns:

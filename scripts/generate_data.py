@@ -13,19 +13,27 @@ DEVICE = "cuda:0"  # can use gpu by setting to "cuda:0"
 
 
 # FILE PATHS
-INPUT_F = "data/data_ads_10k.csv"
-OUTPUT_F = "data/synthetic_fair_data_ads_100k.csv"
-MODEL_F = "data/tabgan_fair_ads_10k_model.pkl"
+INPUT_F = "data/data_ads_500k.csv"
+OUTPUT_F = "data/synthetic_fair_data_ads_500k.csv"
+MODEL_F = "data/tabgan_fair_ads_500k_model.pkl"
 
 
 # FAIRNESS CONFIG
 # note: tradeoff between fairness and accuracy
+# FAIR_EPOCHS = 50
+# LAMDA = 0.5
+# S = "age"
+# S_UNDER = "4"
+# Y = "label"
+# Y_DESIRE = "1"
+
+# CONIGS for GENDER
 FAIR_EPOCHS = 50
 LAMDA = 0.5
-S = "age"
-S_UNDER = "4"
+S = "gender"
+S_UNDER = "2"
 Y = "label"
-Y_DESIRE = "1"
+Y_DESIRE = "0"
 
 
 # SOME UTIL FUNCTIONS
