@@ -1,6 +1,14 @@
 # Ignore all .csv files in the /data directory
 /data/*.csv
 /data/*.pkl
+/data/10k/
+/data/100k/
+/data/500k/
+/data/30k/
+/data/50k/
+/data/10k_gender/
+/data/30k_gender/
+/data/100k_gender/
 
 # General ignores
 *.log          # Log files
