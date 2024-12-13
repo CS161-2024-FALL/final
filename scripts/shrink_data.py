@@ -1,12 +1,17 @@
 import pandas as pd
 
 
-def shrink_dataset(input_path, output_path, num_samples=40000):
-    # Load raw data
+RAW_F = r"C:\SCHOOL\FALL 24\STATS 161\midterm\train_data_ads.csv"
+OUTPUT_F = "data/data_ads_10k.csv"
+N_SAMPLES = 10000
+
+
+def shrink_dataset(input_path, output_path):
+    # this is raw raw fr ft data
     df = pd.read_csv(input_path)
 
     # Sample N rows
-    df_shrunk = df.sample(n=num_samples, random_state=42)
+    df_shrunk = df.sample(n=N_SAMPLES, random_state=110)
 
     # Save the shrunk dataset
     df_shrunk.to_csv(output_path, index=False)
@@ -14,6 +19,6 @@ def shrink_dataset(input_path, output_path, num_samples=40000):
 
 
 if __name__ == "__main__":
-    input_file = r"C:\SCHOOL\FALL 24\STATS 161\midterm\test_data_ads.csv"
-    output_file = "data/raw_data.csv"
+    input_file = RAW_F
+    output_file = OUTPUT_F
     shrink_dataset(input_file, output_file)

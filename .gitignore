@@ -1,5 +1,6 @@
 # Ignore all .csv files in the /data directory
 /data/*.csv
+/data/*.pkl
 
 # General ignores
 *.log          # Log files

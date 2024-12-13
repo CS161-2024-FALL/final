@@ -1,23 +1,23 @@
 import pandas as pd
 from utils import encode_categorical, normalize_numerical
 
-# Explicitly define fields
+# Originally, this was used with another tab gan library, not the one we are using
 categorical_cols = [
     "gender",
     "residence",
     "city",
     "city_rank",
-    "series_dev",
-    "series_group",
-    "emui_dev",
-    "device_name",
-    "net_type",
+    # "series_dev",
+    # "series_group",
+    # "emui_dev",
+    # "device_name",
+    # "net_type",
 ]
 
 numerical_cols = [
     "age",
-    "device_size",
-    "app_score",
+    # "device_size",
+    # "app_score",
     "u_refreshTimes",
     "u_feedLifeCycle",
 ]
@@ -49,25 +49,15 @@ include_fields = categorical_cols + numerical_cols
 
 
 def preprocess_data(input_path, output_path):
-    """
-    Preprocess the input dataset by selecting specified fields,
-    encoding categorical fields, and normalizing numeric fields.
 
-    Args:
-        input_path (str): Path to the raw dataset CSV.
-        output_path (str): Path to save the processed dataset CSV.
-
-    Returns:
-        None
-    """
-    # Load the dataset
+    # getting the actual data
     print(f"Loading dataset from {input_path}...")
     df = pd.read_csv(input_path)
 
-    # Drop ignored fields
+    # drop ignored fields
     df = df.drop(columns=ignored_fields, errors="ignore")
 
-    # Validate fields
+    # validating fields
     missing_categorical = [col for col in categorical_cols if col not in df.columns]
     missing_numerical = [col for col in numerical_cols if col not in df.columns]
     if missing_categorical or missing_numerical:
@@ -76,15 +66,15 @@ def preprocess_data(input_path, output_path):
             f"Categorical: {missing_categorical}\nNumerical: {missing_numerical}"
         )
 
-    # Preprocess categorical fields
+    # preprocess categorical...
     print("Encoding categorical fields...")
     df, encoders = encode_categorical(df, categorical_cols)
 
-    # Preprocess numerical fields
+    # preprocess numerical...
     print("Normalizing numerical fields...")
     df, scaler = normalize_numerical(df, numerical_cols)
 
-    # Save the processed dataset
+    # Saving the processed data
     print(f"Saving processed dataset to {output_path}...")
     df.to_csv(output_path, index=False)
     print(f"Processed data saved successfully at {output_path}")
